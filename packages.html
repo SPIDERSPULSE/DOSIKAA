@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dosikaa Pro | Investment Packages</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --primary-dark: #172554;
+            --primary-light: #3b82f6;
+            --secondary: #f59e0b;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --card-bg: #ffffff;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+        }
+
+        .page-subtitle {
+            font-size: 18px;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .packages-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .package-tab {
+            padding: 10px 20px;
+            border-radius: 6px;
+            background-color: var(--gray-light);
+            color: var(--dark);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .package-tab:hover {
+            background-color: var(--primary-light);
+            color: white;
+        }
+
+        .package-tab.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .package-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--gray-light);
+        }
+
+        .package-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .package-header {
+            padding: 25px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-align: center;
+        }
+
+        .package-name {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .package-type {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        .package-price {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .package-period {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .package-body {
+            padding: 25px;
+        }
+
+        .package-features {
+            margin-bottom: 25px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        .feature-item i {
+            margin-right: 10px;
+            color: var(--success);
+        }
+
+        .package-cta {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .package-cta:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .package-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--secondary);
+            color: var(--dark);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .package-card.popular {
+            border: 2px solid var(--secondary);
+            position: relative;
+        }
+
+        .package-card.popular .package-header {
+            background: linear-gradient(135deg, var(--secondary), #e67e22);
+        }
+
+        .package-card.popular .package-cta {
+            background-color: var(--secondary);
+            color: var(--dark);
+        }
+
+        .package-card.popular .package-cta:hover {
+            background-color: #e67e22;
+        }
+
+        .asset-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+        }
+
+        .forex {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--primary);
+        }
+
+        .crypto {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .stocks {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .nft {
+            background-color: rgba(139, 92, 246, 0.1);
+            color: #8b5cf6;
+        }
+
+        .combo {
+            background-color: rgba(236, 72, 153, 0.1);
+            color: #ec4899;
+        }
+
+        .asset-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .assets-tags {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .packages-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-title {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">Investment Packages</h1>
+            <p class="page-subtitle">Choose from our carefully crafted investment packages designed to maximize your returns across multiple asset classes</p>
+        </div>
+
+        <div class="packages-tabs">
+            <button class="package-tab active" data-category="all">All Packages</button>
+            <button class="package-tab" data-category="forex">Forex</button>
+            <button class="package-tab" data-category="crypto">Cryptocurrency</button>
+            <button class="package-tab" data-category="stocks">Stocks</button>
+            <button class="package-tab" data-category="nft">NFTs</button>
+            <button class="package-tab" data-category="combo">Combination</button>
+        </div>
+
+        <div class="packages-grid">
+            <!-- Forex Package -->
+            <div class="package-card" data-category="forex">
+                <div class="package-header">
+                    <h3 class="package-name">Forex Pro</h3>
+                    <div class="package-type">Currency Trading Package</div>
+                    <div class="package-price">KES 10,200</div>
+                    <div class="package-period">Minimum Investment</div>
+                </div>
+                <div class="package-body">
+                    <div class="assets-tags">
+                        <span class="asset-tag forex">
+                            <i class="fas fa-dollar-sign"></i> Forex
+                        </span>
+                    </div>
+                    <div class="package-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> Access to 50+ currency pairs
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> Daily market analysis
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> 1:100 leverage available
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> Dedicated account manager
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> 15-25% monthly ROI target
+                        </div>
+                    </div>
+                    <button class="package-cta" onclick="window.location.href='index.html';">
+                          <i class="fas fa-arrow-right"></i> Invest Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Crypto Package -->
+            <div class="package-card popular" data-category="crypto">
+                <div class="package-badge">Most Popular</div>
+                <div class="package-header">
+                    <h3 class="package-name">Crypto Max</h3>
+                    <div class="package-type">Digital Assets Package</div>
+                    <div class="package-price">KES 25,000</div>
+                    <div class="package-period">Minimum Investment</div>
+                </div>
+                <div class="package-body">
+                    <div class="assets-tags">
+                        <span class="asset-tag crypto">
+                            <i class="fab fa-bitcoin"></i> Crypto
+                        </span>
+                    </div>
+                    <div class="package-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> 30+ major cryptocurrencies
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> Weekly portfolio rebalancing
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> Staking rewards included
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> Defi opportunities
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> 20-40% monthly ROI target
+                        </div>
+                    </div>
+                    <button class="package-cta" onclick="window.location.href='index.html';">
+                          <i class="fas fa-arrow-right"></i> Invest Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stocks Package -->
+            <div class="package-card" data-category="stocks">
+                <div class="package-header">
+                    <h3 class="package-name">Blue Chip</h3>
+                    <div class="package-type">Stock Investment Package</div>
+                    <div class="package-price">KES 2,500</div>
+                    <div class="package-period">Minimum Investment</div>
+                </div>
+                <div class="package-body">
+                    <div class="assets-tags">
+                        <span class="asset-tag stocks">
+                            <i class="fas fa-chart-line"></i> Stocks
+                        </span>
+                    </div>
+                    <div class="package-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> NYSE, NASDAQ & NSE stocks
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> Dividend reinvestment
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> Quarterly earnings analysis
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> Portfolio diversification
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> 10-20% monthly ROI target
+                        </div>
+                    </div>
+                    <button class="package-cta" onclick="window.location.href='index.html';">
+                          <i class="fas fa-arrow-right"></i> Invest Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- NFT Package -->
+            <div class="package-card" data-category="nft">
+                <div class="package-header">
+                    <h3 class="package-name">NFT Visionary</h3>
+                    <div class="package-type">Digital Collectibles Package</div>
+                    <div class="package-price">KES 5,500</div>
+                    <div class="package-period">Minimum Investment</div>
+                </div>
+                <div class="package-body">
+                    <div class="assets-tags">
+                        <span class="asset-tag nft">
+                            <i class="fas fa-image"></i> NFTs
+                        </span>
+                    </div>
+                    <div class="package-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> Blue-chip NFT acquisitions
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> Early access to new drops
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> Fractional NFT ownership
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> Metaverse land parcels
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> 25-50% monthly ROI target
+                        </div>
+                    </div>
+                    <button class="package-cta" onclick="window.location.href='index.html';">
+                          <i class="fas fa-arrow-right"></i> Invest Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Combo Package 1 -->
+            <div class="package-card" data-category="combo">
+                <div class="package-header">
+                    <h3 class="package-name">Diversified Pro</h3>
+                    <div class="package-type">Multi-Asset Package</div>
+                    <div class="package-price">KES 10,500</div>
+                    <div class="package-period">Minimum Investment</div>
+                </div>
+                <div class="package-body">
+                    <div class="assets-tags">
+                        <span class="asset-tag forex">
+                            <i class="fas fa-dollar-sign"></i> Forex
+                        </span>
+                        <span class="asset-tag crypto">
+                            <i class="fab fa-bitcoin"></i> Crypto
+                        </span>
+                        <span class="asset-tag stocks">
+                            <i class="fas fa-chart-line"></i> Stocks
+                        </span>
+                    </div>
+                    <div class="package-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> Balanced asset allocation
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> Risk-managed portfolio
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> Weekly performance reports
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> Automatic rebalancing
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> 18-30% monthly ROI target
+                        </div>
+                    </div>
+                    <button class="package-cta" onclick="window.location.href='index.html';">
+                          <i class="fas fa-arrow-right"></i> Invest Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Combo Package 2 -->
+            <div class="package-card" data-category="combo">
+                <div class="package-header">
+                    <h3 class="package-name">Wealth Builder</h3>
+                    <div class="package-type">Premium Investment Package</div>
+                    <div class="package-price">KES 15,000</div>
+                    <div class="package-period">Minimum Investment</div>
+                </div>
+                <div class="package-body">
+                    <div class="assets-tags">
+                        <span class="asset-tag forex">
+                            <i class="fas fa-dollar-sign"></i> Forex
+                        </span>
+                        <span class="asset-tag crypto">
+                            <i class="fab fa-bitcoin"></i> Crypto
+                        </span>
+                        <span class="asset-tag stocks">
+                            <i class="fas fa-chart-line"></i> Stocks
+                        </span>
+                        <span class="asset-tag nft">
+                            <i class="fas fa-image"></i> NFTs
+                        </span>
+                    </div>
+                    <div class="package-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> All asset classes included
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> VIP market signals
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> 24/7 trading support
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> Tax optimization strategy
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i> 25-45% monthly ROI target
+                        </div>
+                    </div>
+                    <button class="package-cta" onclick="window.location.href='index.html';">
+                          <i class="fas fa-arrow-right"></i> Invest Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Package filtering functionality
+        document.querySelectorAll('.package-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Update active tab
+                document.querySelectorAll('.package-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Filter packages
+                const category = this.dataset.category;
+                const packages = document.querySelectorAll('.package-card');
+                
+                packages.forEach(pkg => {
+                    if (category === 'all' || pkg.dataset.category === category) {
+                        pkg.style.display = 'block';
+                    } else {
+                        pkg.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Invest Now button functionality
+        document.querySelectorAll('.package-cta').forEach(button => {
+            button.addEventListener('click', function() {
+                const packageName = this.closest('.package-card').querySelector('.package-name').textContent;
+                alert(`You've selected the ${packageName} package. Redirecting to investment form...`);
+                // In a real implementation, you would redirect to a signup/investment page
+            });
+        });
+    </script>
+</body>
+</html>
